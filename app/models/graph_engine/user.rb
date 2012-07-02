@@ -1,7 +1,7 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps
-  # include GraphEngine::FacebookUser
+  include GraphEngine::FacebookUser
 
   field :followers, :type => Array, :default => []
   field :following, :type => Array, :default => []
