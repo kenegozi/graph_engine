@@ -24,7 +24,7 @@ module GraphEngine::Api
     #   foursquare_friend_ids
     # 
     # Returns a graph user
-    def self.create(options = {})
+    def self.create_or_update(options = {})
       ext_app_type = GraphEngine::ExtAppType.get_type_from_app_name(options[:ext_app_type])
       raise GraphEngine::Api::Exception.new("You have to supply a valid :ext_app_type") unless ext_app_type > 0
 
@@ -50,8 +50,10 @@ module GraphEngine::Api
 
       user.save!
 
-      user.fb_import_friends
-      user.fb_import_friends_of_friends
+      if user.facebook_user?
+        user.fb_import_friends
+        user.fb_import_friends_of_friends    
+      end
 
       user
     end
