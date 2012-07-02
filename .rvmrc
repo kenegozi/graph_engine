@@ -1,1 +1,1 @@
-rvm --create use "ruby-1.9.3-p194@graph_engine"
+rvm --create use "ruby-1.9.3-p0@graph_engine"

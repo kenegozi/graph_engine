@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe GraphEngine::Facebook::Client do
-  let(:user) { Fabricate.build('GraphEngine::FacebookUser') }
+  let(:user) { Fabricate.build('GraphEngine::User') }
   subject { GraphEngine::Facebook::Client }
   let(:client) { subject.new({ fb_uid: user.fb_uid, fb_oauth_token: user.fb_oauth_token }) }
   
