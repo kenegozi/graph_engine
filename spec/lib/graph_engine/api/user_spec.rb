@@ -20,7 +20,7 @@ describe GraphEngine::Api::User do
     end
 
     it "should be valid" do
-      GraphEngine::Api::User.create(@valid_hash)
+      GraphEngine::Api::User.create(@valid_hash).should == GraphEngine::User.first
       GraphEngine::User.count.should == 1
     end
   end
