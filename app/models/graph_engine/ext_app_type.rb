@@ -17,7 +17,7 @@ module GraphEngine
     # Returns the duplicated String.
     def self.get_type_from_app_name(app_name)
       begin
-        "ExtAppType::#{app_name.upcase}".constantize
+        "GraphEngine::ExtAppType::#{app_name.upcase}".constantize
       rescue Exception => e
         0
       end

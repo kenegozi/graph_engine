@@ -1,4 +1,4 @@
-Fabricator(:user) do
+Fabricator('GraphEngine::User') do
   ext_app_type { GraphEngine::ExtAppType::GOGOBOT }
   ext_user_id { sequence(:ext_user_id, 1000000000) }
   gogobot_user_id { sequence(:ext_user_id, 1000000000) }
