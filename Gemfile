@@ -11,7 +11,7 @@ gem 'koala'
 gem 'rabl'
 gem 'yajl-ruby'
 
-group :test do
+group :development, :test do
   gem "fabrication", :git => 'git@github.com:KensoDev/fabrication.git'
   gem "rspec-rails"
   gem "faker"

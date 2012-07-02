@@ -2,6 +2,9 @@ ENV["RAILS_ENV"] ||= 'test'
 
 require 'rubygems'
 require 'spork'
+require 'fabrication'
+require 'faker'
+require 'vcr'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -10,9 +13,6 @@ Spork.prefork do
   require File.expand_path("../../spec/dummy/config/environment", __FILE__)
   require 'rspec/rails'
   require 'rspec/autorun'
-  require 'fabrication'
-  require 'faker'
-  require 'vcr'
 
   VCR.configure do |c|
     c.cassette_library_dir = 'fixtures/vcr_cassettes'

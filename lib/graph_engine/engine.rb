@@ -1,5 +1,3 @@
-require 'graph_engine/facebook/client'
-
 module GraphEngine
   class Engine < ::Rails::Engine
     isolate_namespace GraphEngine
