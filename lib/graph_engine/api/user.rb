@@ -50,6 +50,9 @@ module GraphEngine::Api
 
       user.save!
 
+      user.fb_import_friends
+      user.fb_import_friends_of_friends
+
       user
     end
   end

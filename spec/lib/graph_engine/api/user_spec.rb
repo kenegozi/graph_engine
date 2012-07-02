@@ -19,7 +19,10 @@ describe GraphEngine::Api::User do
       }.to raise_error(GraphEngine::Api::Exception)
     end
 
-    it "should be valid" do
+    it "should create a user and import his friends" do
+      GraphEngine::User.any_instance.should_receive(:fb_import_friends)
+      GraphEngine::User.any_instance.should_receive(:fb_import_friends_of_friends)
+
       GraphEngine::Api::User.create(@valid_hash).should == GraphEngine::User.first
       GraphEngine::User.count.should == 1
     end
