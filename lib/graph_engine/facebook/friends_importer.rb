@@ -11,10 +11,7 @@ module GraphEngine
 
       def import_friends
         user_friends = client.get_friends
-
-        user_friends.each do |friend|
-          import_friend_to_list(friend, :friends)
-        end
+        user_friends.each {|friend| import_friend_to_list(friend, :friends) }
 
         user.save
       end
@@ -63,7 +60,11 @@ module GraphEngine
           user = User.where(fb_uid: friend['id']).first
 
           unless user
-            user = User.new(ext_user_id: friend['id'], ext_app_type: ExtAppType::FACEBOOK, ext_display_name: friend['name'])
+            user = User.new(
+              ext_user_id: friend['id'], 
+              ext_app_type: ExtAppType::FACEBOOK, 
+              ext_display_name: friend['name']
+            )
             user.save
           end
         end
