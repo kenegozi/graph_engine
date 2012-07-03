@@ -1,4 +1,5 @@
 require 'graph_engine/facebook/friends_importer'
+require 'graph_engine/facebook/client'
 require 'graph_engine/user'
 
 describe GraphEngine::Facebook::FriendsImporter do
@@ -21,6 +22,20 @@ describe GraphEngine::Facebook::FriendsImporter do
   end
 
   describe :import_friends do
+    it "should create 3 external users from my friends" do
+      importer = subject.new(@user)
+      importer.client.should_receive(:get_friends).and_return([
+          {"name"=>"Ashim Chhabra", "id"=>"638960542"},
+          {"name"=>"Osher Yadgar", "id"=>"639948152"},
+          {"name"=>"Yair Wiener", "id"=>"640268580"}
+        ])
+
+      expect { 
+        importer.import_friends
+      }.to change {
+        GraphEngine::ExternalUser.count
+      }.by(3)
+    end
     it "should create 2 more users from the users Facebook friends" do
       importer = subject.new(@user)
       importer.client.should_receive(:get_friends).and_return([
@@ -30,8 +45,10 @@ describe GraphEngine::Facebook::FriendsImporter do
         ])
 
       expect {
-        importer.import_friends  
-      }.to change{ GraphEngine::User.count }.by(2)
+        importer.import_friends 
+      }.to change{ 
+        GraphEngine::User.count
+      }.by(2)
     end
 
     it "should add the fb_uids of the friends to the user friends array" do
