@@ -13,8 +13,7 @@ module GraphEngine
         user_friends = client.get_friends
 
         user_friends.each do |friend|
-          get_or_create_user_from_friend(friend)
-          add_friend_to_friends_list(friend)
+          import_friend_to_list(friend, :friends)
         end
 
         user.save
@@ -27,9 +26,7 @@ module GraphEngine
           friend_client.get_friends.each do |friend_of_friend|
             # This is a must, since FB will block us if we create over the limit API-requests
             sleep(2) unless Rails.env.test?
-
-            get_or_create_user_from_friend(friend_of_friend)
-            add_friend_to_friends_of_friends_list(friend_of_friend)
+            import_friend_to_list(friend_of_friend, :friends_of_friends)
           end
         end
 
@@ -37,6 +34,21 @@ module GraphEngine
       end
 
       private
+        def import_friend_to_list(friend, list)
+          method = "add_friend_to_#{list.to_s}_list"
+          get_or_create_user_from_friend(friend)
+          create_external_user_from_friend(friend)
+          send(method, friend)
+        end
+
+        def create_external_user_from_friend(friend)
+          GraphEngine::ExternalUser.create( { 
+            ext_app_type: GraphEngine::ExtAppType::FACEBOOK, 
+            ext_user_id: friend['id'],
+            display_name: friend['name']
+          })
+        end
+
         def add_friend_to_friends_of_friends_list(friend)
           fb_uid = friend['id']
           user.facebook_friend_of_friend_ids << fb_uid unless user.facebook_friend_of_friend_ids.include?(fb_uid)
