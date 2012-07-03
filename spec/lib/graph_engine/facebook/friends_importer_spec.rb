@@ -3,7 +3,6 @@ require 'graph_engine/facebook/client'
 require 'graph_engine/user'
 
 describe GraphEngine::Facebook::FriendsImporter do
-
   subject { GraphEngine::Facebook::FriendsImporter }  
 
   before(:each) do
@@ -87,7 +86,6 @@ describe GraphEngine::Facebook::FriendsImporter do
     end
   end
 end
-# 
 # {"name"=>"שמואל אלישע", "id"=>"100000570473388"}
 # {"name"=>"Oren Todoros", "id"=>"100000790614527"}
 # {"name"=>"Ran Bar-Zik", "id"=>"100000847860515"}
