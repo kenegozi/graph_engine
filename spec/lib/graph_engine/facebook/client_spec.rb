@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'graph_engine/facebook/client'
 
 describe GraphEngine::Facebook::Client do
   let(:user) { Fabricate.build('GraphEngine::User') }
